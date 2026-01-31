@@ -19,6 +19,7 @@ Windy is a Wind mod for Kerbal Space Program meant to enhance the game by adding
 - Jet Streams
 - Wind Shear
 - 3D Wind Direction View
+- Volumetric Clouds Integration
 
 ---
 
