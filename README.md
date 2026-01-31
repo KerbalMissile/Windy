@@ -1,2 +1,30 @@
 # Windy
-A Wind mod for Kerbal Space Program, made specifically so it does not require FARc.
+
+<img width="1024" height="1024" alt="Windy" src="https://github.com/user-attachments/assets/a56e0c15-b9ee-4bef-93fb-e5ea7e8a54e0" />
+
+---
+
+Windy is a Wind mod for Kerbal Space Program meant to enhance the game by adding wind and other effects!
+
+---
+
+**Curent Features:**
+
+- Wind Speed and Direction
+- Forecasts For Speed & Directions
+- Python Window for External Display
+
+**Future Features:**
+- Gusts
+- Jet Streams
+- Wind Shear
+- 3D Wind Direction View
+
+---
+
+**Dependencies:**
+- None For Now
+
+--- 
+
+Hope you all enjoy the mod, feel free to post an Issue Report if you want a feature or have a bug or even make modifications and submit a Pull Request!
