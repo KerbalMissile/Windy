@@ -23,7 +23,7 @@ Windy is a Wind mod for Kerbal Space Program meant to enhance the game by adding
 ---
 
 **Dependencies:**
-- None For Now
+- Python 3.13+ if you plan on using the window
 
 --- 
 
