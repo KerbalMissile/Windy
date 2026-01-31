@@ -27,6 +27,9 @@ Windy is a Wind mod for Kerbal Space Program meant to enhance the game by adding
 
 **Incompatibilities:**
 - Any Planet Pack Currently (Planet revamps are fine)
+- Advanced Atmosphere Tools
+- Kerbal Weather Project
+- Ferram Aerospace Research Continued (Might work but I don't suggest it)
 
 --- 
 
