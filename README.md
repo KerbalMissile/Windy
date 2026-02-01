@@ -30,6 +30,10 @@ If you want to use the window make sure you set the file directory at the top to
 **Dependencies:**
 - Python 3.13+ if you plan on using the window
 
+**Compatibilites:**
+- Outer Planets Mod
+- Sketchy support with JNSQ / MRKI, may not work as expected but wind is still there, just not tweaked properly. Just the stock planets though, not the additions.
+
 **Incompatibilities:**
 - Any Planet Pack Currently (Planet revamps are fine)
 - Advanced Atmosphere Tools
