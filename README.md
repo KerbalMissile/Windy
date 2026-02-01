@@ -23,6 +23,10 @@ Windy is a Wind mod for Kerbal Space Program meant to enhance the game by adding
 
 ---
 
+If you want to use the window make sure you set the file directory at the top to your ksp root folder, then after running the game once, there should be a file called WindyData.txt, set your file location in the Python window to THAT.
+
+---
+
 **Dependencies:**
 - Python 3.13+ if you plan on using the window
 
