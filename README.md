@@ -29,6 +29,7 @@ If you want to use the window make sure you set the file directory at the top to
 
 **Dependencies:**
 - Python 3.13+ if you plan on using the window
+- ModuleManager
 
 **Compatibilites:**
 - Outer Planets Mod
