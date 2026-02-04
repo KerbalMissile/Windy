@@ -15,9 +15,16 @@ Windy is a Wind mod for Kerbal Space Program meant to enhance the game by adding
 - Python Window for External Display
 - Wind Shear
 - 3D Wind Direction View
+- Gusts
+- Thermal Based Wind
+- Biome-based wind
+- Coriolis effect
+- Oceanic Drift
+- Saved Wind (Wind saves every quicksave or leave so that when you go back to your save or reload the game it will remember wind speed and direction)
+- Extra lift in Headwinds
+- Terrain affected wind
 
 **Future Features:**
-- Gusts
 - Jet Streams
 - Volumetric Clouds Integration
 
