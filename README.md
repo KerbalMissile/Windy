@@ -2,6 +2,8 @@
 
 <img width="1024" height="1024" alt="Windy" src="https://github.com/user-attachments/assets/a56e0c15-b9ee-4bef-93fb-e5ea7e8a54e0" />
 
+Thanks to Bob² over on the discord for the logo!
+
 ---
 
 Windy is a Wind mod for Kerbal Space Program meant to enhance the game by adding wind and other effects!
