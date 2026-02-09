@@ -1,6 +1,6 @@
 # Windy
 
-![GitHub Downloads (all assets, latest release)](https://img.shields.io/github/downloads/kerbalmissile/Windy/latest/total?style=plastic&label=Downloads%20(Latest)&color=%230088ff)
+<img width="1024" height="1024" alt="Windy" src="https://github.com/user-attachments/assets/a5889bf7-f05f-4ff0-aad3-e26742d78ca8" />
 
 ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/KerbalMissile/Windy/total?color=%230099ff)
 
