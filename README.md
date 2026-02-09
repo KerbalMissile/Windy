@@ -40,6 +40,11 @@ If you want to use the window make sure you set the file directory at the top to
 
 ---
 
+**Download Links:**
+Github: https://github.com/KerbalMissile/Windy
+
+---
+
 **Dependencies:**
 - Python 3.13+ if you plan on using the window
 - ModuleManager
