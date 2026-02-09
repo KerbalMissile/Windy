@@ -8,7 +8,7 @@ Thanks to Bob² over on the discord for the logo!
 
 ---
 
-Windy is a Wind mod for Kerbal Space Program meant to enhance the game by adding wind and other effects!
+Windy is a Wind mod for Kerbal Space Program meant to enhance the game by adding wind and other wind related effects!
 
 ---
 
