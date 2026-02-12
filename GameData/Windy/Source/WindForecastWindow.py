@@ -3,7 +3,10 @@ import time
 import tkinter as tk
 from tkinter import ttk, filedialog
 
-# CHANGE THIS TO YOUR KSP FOLDER
+# Simple external window to display Windy data file
+# Beginner-friendly Python script using tkinter.
+
+# CHANGE THIS TO YOUR KSP FOLDER IF YOU WANT A DEFAULT
 DEFAULT_KSP_ROOT = r"D:\SteamLibrary\steamapps\common\ModTestingKSP"
 DEFAULT_DATA_FILE = os.path.join(DEFAULT_KSP_ROOT, "WindyWindData.txt")
 
@@ -28,7 +31,6 @@ def parse_wind_file(path):
                 try:
                     data[key] = float(val)
                 except ValueError:
-                    # keep non-numeric values as strings if needed
                     data[key] = val
     except OSError:
         return None

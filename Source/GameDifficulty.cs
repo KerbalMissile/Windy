@@ -2,6 +2,10 @@ using System;
 using System.Reflection;
 using UnityEngine;
 
+// Beginner-friendly GameDifficulty wrapper for Windy.
+// Keeps settings in the Difficulty screen so users can tweak wind behavior.
+// Simple, well-commented, old-compiler friendly C#.
+
 namespace Windy
 {
     public class GameDifficulty : GameParameters.CustomParameterNode
@@ -13,47 +17,51 @@ namespace Windy
         public override string DisplaySection { get { return Section; } }
         public override bool HasPresets { get { return false; } }
 
+        // --- User-facing settings ---
+
+        // Turn all wind effects on/off
         [GameParameters.CustomParameterUI("Enable Wind", toolTip = "Turn all Windy effects on or off.", autoPersistance = true)]
         public bool windEnabled = true;
 
+        // Max wind speed in m/s
         [GameParameters.CustomIntParameterUI("Max Wind Speed (m/s)", toolTip = "Maximum wind speed.", minValue = 0, maxValue = 100, stepSize = 5, autoPersistance = true)]
         public int maxWindSpeed = 25;
 
+        // Allow headwind to add lift to wings
         [GameParameters.CustomParameterUI("Enable Headwind Lift", toolTip = "Headwinds increase lift on wings.", autoPersistance = true)]
         public bool enableHeadwindLift = true;
 
+        // How much extra lift (percent)
         [GameParameters.CustomIntParameterUI("Headwind Lift (%)", toolTip = "Multiplier for extra lift.", minValue = 0, maxValue = 500, stepSize = 10, autoPersistance = true)]
         public int headwindLiftPercent = 150;
 
-        // feature toggles
+        // Toggle for jet streams (work-in-progress)
         [GameParameters.CustomParameterUI("Enable Jet Streams (WIP)", toolTip = "Work in progress.", autoPersistance = true)]
         public bool enableJetStreams = true;
 
+        // Wind shear toggle
         [GameParameters.CustomParameterUI("Enable Wind Shear", toolTip = "Apply vertical wind shear effects.", autoPersistance = true)]
         public bool enableWindShear = true;
 
-        [GameParameters.CustomParameterUI("Enable Gusts (WIP)", toolTip = "Work in progress.", autoPersistance = true)]
+        // Gusts toggle
+        [GameParameters.CustomParameterUI("Enable Gusts", toolTip = "Enable stochastic gusts (short-timescale turbulence).", autoPersistance = true)]
         public bool enableGusts = true;
 
+        // Hide other settings when the main wind toggle is off.
         public override bool Enabled(MemberInfo member, GameParameters parameters)
         {
-            if (member.Name == "windEnabled")
-            {
-                return true;
-            }
-            // hide everything else when wind is off
+            if (member.Name == "windEnabled") return true;
             return windEnabled;
         }
 
+        // Helper to fetch the settings object from the current save.
         public static GameDifficulty GetSettings()
         {
-            if (HighLogic.CurrentGame == null)
-            {
-                return null;
-            }
+            if (HighLogic.CurrentGame == null) return null;
             return HighLogic.CurrentGame.Parameters.CustomParams<GameDifficulty>();
         }
 
+        // Public helpers used by other classes (old-compiler friendly)
         public static bool IsWindEnabled()
         {
             GameDifficulty settings = GetSettings();
@@ -68,13 +76,14 @@ namespace Windy
             return (float)settings.maxWindSpeed;
         }
 
+        // Do we apply headwind-based extra lift?
         public static bool AreHeadwindLiftEnabled()
         {
             GameDifficulty settings = GetSettings();
-            if (settings == null) return false;
-            return settings.enableHeadwindLift;
+            return settings != null && settings.windEnabled && settings.enableHeadwindLift;
         }
 
+        // Multiplier for headwind lift (1.0 = 100%)
         public static float GetHeadwindLiftMultiplier()
         {
             GameDifficulty settings = GetSettings();
@@ -82,7 +91,7 @@ namespace Windy
             return (float)settings.headwindLiftPercent / 100f;
         }
 
-        // helpers for feature toggles
+        // Feature toggles
         public static bool AreJetStreamsEnabled()
         {
             GameDifficulty settings = GetSettings();

@@ -4,10 +4,9 @@ using UnityEngine;
 namespace Windy
 {
     // Simple procedural wind generator used by the Wind class.
-    // No gusts and no jetstreams right now (per your request).
+    // Beginner-friendly, deterministic if a seed is supplied.
     public class Forecasts
     {
-        // Small struct to pass wind values around
         public struct ForecastData
         {
             public float windSpeed;
@@ -16,33 +15,41 @@ namespace Windy
             public string description;
         }
 
-        // Seeds so the noise is deterministic per game session
+        // Internal seeds
         private static float seedTime;
         private static float seedAlt;
         private static float seedDir;
 
-        // Call once at game start (or when plugin starts)
+        // Initialize with a random seed (called by older code paths)
         public static void Initialize()
         {
+            // pick random seeds so runs are not identical
             seedTime = UnityEngine.Random.Range(0f, 10000f);
             seedAlt  = UnityEngine.Random.Range(0f, 10000f);
             seedDir  = UnityEngine.Random.Range(0f, 10000f);
         }
 
-        // Current wind at altitude and time
+        // Initialize deterministically from an integer seed (for save-file consistency)
+        public static void InitializeFromSeed(int seed)
+        {
+            System.Random rnd = new System.Random(seed);
+            seedTime = (float)(rnd.NextDouble() * 10000.0);
+            seedAlt  = (float)(rnd.NextDouble() * 10000.0);
+            seedDir  = (float)(rnd.NextDouble() * 10000.0);
+        }
+
         public static ForecastData GetCurrentWind(double altitude, double currentTime)
         {
             return CalculateWind(altitude, currentTime);
         }
 
-        // Forecast minutesAhead into the future
         public static ForecastData GetForecast(double altitude, double currentTime, float minutesAhead)
         {
             double futureTime = currentTime + (minutesAhead * 60.0);
             return CalculateWind(altitude, futureTime);
         }
 
-        // Multi-octave Perlin (fBm) helper to make wind more natural
+        // Simple fBm using Perlin noise to make wind feel natural
         private static float FBmNoise(float x, float y, int octaves)
         {
             float amp = 1f;
@@ -59,42 +66,36 @@ namespace Windy
             }
 
             if (max == 0f) return 0f;
-            return sum / max; // normalized 0..1
+            return sum / max;
         }
 
-        // The actual wind calculation (simple and deterministic)
         private static ForecastData CalculateWind(double altitude, double time)
         {
-            // Read user's max setting; if it fails, use a safe default
+            // Respect the user's max wind setting
             float userMax = GameDifficulty.GetMaxWindSpeed();
-            if (userMax <= 1f) userMax = 25f; // fallback safe cap
+            if (userMax <= 1f) userMax = 25f;
 
-            // Tuning constants (easy to tweak)
-            const float BaseMean = 3.0f;    // baseline wind floor (m/s)
-            const float BaseVar = 10.0f;    // how much above the floor the noise can go
-            const float TimeScale = 0.008f; // speed of time evolution
-            const float AltScale = 0.0006f; // altitude sampling scale
-            const int Octaves = 4;          // octaves for fBm
+            // Tunable constants
+            const float BaseMean = 3.0f;
+            const float BaseVar = 10.0f;
+            const float TimeScale = 0.008f;
+            const float AltScale = 0.0006f;
+            const int Octaves = 4;
 
             float t = (float)time;
             float altF = (float)altitude;
 
-            // 1) Base procedural speed (fBm)
             float noise = FBmNoise(seedTime + t * TimeScale, seedAlt + altF * AltScale, Octaves);
-            float rawSpeed = BaseMean + (noise * BaseVar); // ~3..13 m/s typical before scaling
+            float rawSpeed = BaseMean + (noise * BaseVar);
 
-            // 2) Altitude shear: wind tends to increase with altitude a bit
-            float shearFactor = 1f + (altF / 5000f); // small increase per 5 km
+            float shearFactor = 1f + (altF / 5000f);
             float speedAfterShear = rawSpeed * shearFactor;
 
-            // 3) Respect user's max setting strictly
             float finalSpeed = Mathf.Clamp(speedAfterShear, 0.0f, userMax);
 
-            // 4) Direction (also smooth using fBm)
             float dirNoise = FBmNoise(seedDir + t * (TimeScale * 0.9f), seedAlt + altF * (AltScale * 0.5f), 3);
-            float direction = Mathf.Repeat(dirNoise * 360f, 360f); // 0..360 degrees
+            float direction = Mathf.Repeat(dirNoise * 360f, 360f);
 
-            // 5) Simple description for UI
             string desc = "Stable";
             if (finalSpeed > userMax * 0.8f) desc = "Strong";
             else if (finalSpeed > userMax * 0.45f) desc = "Breezy";

@@ -20,8 +20,9 @@ namespace Windy
             try
             {
                 // only run if enabled
-                if (!GameDifficulty.IsWindEnabled()) return;
-                if (!GameDifficulty.IsWindShearEnabled()) return;
+                var settings = GameDifficulty.GetSettings();
+                if (settings == null || !settings.windEnabled) return;
+                if (!settings.enableWindShear) return;
                 if (Wind.Instance == null) return;
 
                 Vessel vessel = FlightGlobals.ActiveVessel;
